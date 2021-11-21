@@ -3,9 +3,15 @@ import "./osero.css";
 
 var mas = new Array(9);
 
-export default class Todo extends Component  {
+export interface Props {
+    turn?:boolean,
+    result:number
+}
 
-    constructor (props) {
+export default class Todo extends Component<Props, 
+    {turn: boolean, result: number}>  {
+
+    constructor (props:Props) {
         super(props);
         this.state = {
             turn:true,
@@ -15,18 +21,19 @@ export default class Todo extends Component  {
     }
     
     DoReset = () =>{
-        document.getElementById("osero11").value = "";
-        document.getElementById("osero12").value = "";
-        document.getElementById("osero13").value = "";
-        document.getElementById("osero21").value = "";
-        document.getElementById("osero22").value = "";
-        document.getElementById("osero23").value = "";
-        document.getElementById("osero31").value = "";
-        document.getElementById("osero32").value = "";
-        document.getElementById("osero33").value = "";
+        let osero11 = (document.getElementById("osero11") as HTMLInputElement);
+        osero11.value = "";
+        (document.getElementById("osero12") as HTMLInputElement).value = "";
+        (document.getElementById("osero13") as HTMLInputElement).value = "";
+        (document.getElementById("osero21") as HTMLInputElement).value = "";
+        (document.getElementById("osero22") as HTMLInputElement).value = "";
+        (document.getElementById("osero23") as HTMLInputElement).value = "";
+        (document.getElementById("osero31") as HTMLInputElement).value = "";
+        (document.getElementById("osero32") as HTMLInputElement).value = "";
+        (document.getElementById("osero33") as HTMLInputElement).value = "";
     }
 
-    Check_Shohai = (turn) => {
+    Check_Shohai = (turn:any) => {
         var ret = 0;
         if(mas[0] == turn && mas[1] == turn && mas[2] == turn){
             ret =turn;
@@ -61,14 +68,14 @@ export default class Todo extends Component  {
         return ret;
     }
 
-    DoMark = (ids,x,y) => {
+    DoMark = (ids:any,x:any,y:any) => {
         const {turn} = this.state;
         const {result} = this.state;
 
         var flg = false;
         x = x -1;
         y = y -1;
-        const TurnMessage = document.getElementById("TurnId");
+        const TurnMessage = document.getElementById("TurnId") as HTMLElement;
         
         if(result !=0){
             this.DoReset();
@@ -90,15 +97,15 @@ export default class Todo extends Component  {
 
         var win_flg = 0;
         if(turn == true){
-            document.getElementById(ids).value = "〇";
-            document.getElementById(ids).style.color = "red";
+            (document.getElementById(ids) as HTMLInputElement).value = "〇";
+            (document.getElementById(ids) as HTMLInputElement).style.color = "red";
             
             mas[y*3 + x] = 1;
             win_flg = this.Check_Shohai(1);
             flg = false;
         }else{
-            document.getElementById(ids).value = "×";
-            document.getElementById(ids).style.color = "blue";
+            (document.getElementById(ids) as HTMLInputElement).value = "×";
+            (document.getElementById(ids) as HTMLInputElement).style.color = "blue";
             TurnMessage.textContent = "プレイヤー1のターン";
             mas[y*3 + x] = 2;
             win_flg = this.Check_Shohai(2);
@@ -127,7 +134,7 @@ export default class Todo extends Component  {
         }
     }
 
-    onClick = (id) => {
+    onClick = (id:any) => {
         var x_value = id.substr(-2, 1);
         var y_value = id.substr(-1, 1);
         console.log("x:"+x_value+", y:"+y_value);
