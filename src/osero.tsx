@@ -33,7 +33,7 @@ export default class Todo extends Component<Props,
         (document.getElementById("osero33") as HTMLInputElement).value = "";
     }
 
-    Check_Shohai = (turn:any) => {
+    Check_Shohai = (turn:number) => {
         var ret = 0;
         if(mas[0] == turn && mas[1] == turn && mas[2] == turn){
             ret =turn;
@@ -68,7 +68,7 @@ export default class Todo extends Component<Props,
         return ret;
     }
 
-    DoMark = (ids:any,x:any,y:any) => {
+    DoMark = (ids:string,x:number,y:number) => {
         const {turn} = this.state;
         const {result} = this.state;
 
